@@ -81,6 +81,13 @@ namespace ValheimCharacterEditor
             return names;
         }
 
+        static public long[] GetCharacterWorlds(Customization.Character selectedCharacter)
+        {
+            long[] worldkeys = new long[selectedCharacter.Data.WorldsData.Count];
+            selectedCharacter.Data.WorldsData.Keys.CopyTo(worldkeys, 0);
+            return worldkeys;
+        }
+
         static public ValheimEngine.Vector3 ColorToVec3(System.Drawing.Color Color)
         {
             return new ValheimEngine.Vector3

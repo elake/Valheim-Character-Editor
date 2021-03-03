@@ -41,6 +41,7 @@ namespace ValheimCharacterEditor
 
             // Populate forms with data
             comboBox_Characters.DataSource = Util.GetCharactersNames(Customization.FoundCharacters);
+            
             comboBox_Characters.SelectedIndex = -1;
             comboBox_Beard.DataSource = ValheimEngine.BeardsUI;
             comboBox_Hair.DataSource = ValheimEngine.HairsUI;
@@ -76,8 +77,15 @@ namespace ValheimCharacterEditor
                 // Initialize
                 Customization.Initialize(comboBox_Characters.SelectedItem.ToString());
 
+                // Add world select gui
+                comboBoxWorld.DataSource = Util.GetCharacterWorlds(Customization.SelectedCharacter);
+                comboBoxWorld.SelectedIndex = 0;
+
                 // Put appearance in gui
                 textBox_Name.Text = Customization.SelectedCharacter.Data.Name;
+                textBoxX.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.X.ToString();
+                textBoxY.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Y.ToString();
+                textBoxZ.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Z.ToString();
                 comboBox_Beard.SelectedIndex = comboBox_Beard.FindStringExact(ValheimEngine.BeardsUI[Util.FindInArrayString(ValheimEngine.BeardsInternal, Customization.SelectedCharacter.Data.Beard)]);
                 comboBox_Hair.SelectedIndex = comboBox_Hair.FindStringExact(ValheimEngine.HairsUI[Util.FindInArrayString(ValheimEngine.HairsInternal, Customization.SelectedCharacter.Data.Hair)]);
                 comboBox_Gender.SelectedIndex = comboBox_Gender.FindStringExact(Customization.GenderInternaltoUI(Customization.SelectedCharacter.Data.Gender));
@@ -86,6 +94,10 @@ namespace ValheimCharacterEditor
 
                 // Enable gui elements
                 textBox_Name.Enabled = true;
+                comboBoxWorld.Enabled = true;
+                textBoxX.Enabled = true;
+                textBoxY.Enabled = true;
+                textBoxZ.Enabled = true;
                 comboBox_Beard.Enabled = true;
                 comboBox_Hair.Enabled = true;
                 comboBox_Gender.Enabled = true;
@@ -98,6 +110,19 @@ namespace ValheimCharacterEditor
             catch
             {
                 MessageBox.Show("There was an error while trying to get character data.", "ERROR", MessageBoxButtons.OK);
+            }
+        }
+
+        private void comboBoxWorld_SelectedIndexChanged(object sender, EventArgs e)
+        { try
+            {
+                textBoxX.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.X.ToString();
+                textBoxY.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Y.ToString();
+                textBoxZ.Text = Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Z.ToString();
+            }
+            catch
+            {
+                MessageBox.Show("There was an error while trying to get world data", "ERROR", MessageBoxButtons.OK);
             }
         }
 
@@ -148,7 +173,9 @@ namespace ValheimCharacterEditor
                                                             textBox_Name.Text + "\n\t- Beard: " +
                                                             comboBox_Beard.SelectedItem.ToString() + ".\n\t- Hair: " +
                                                             comboBox_Hair.SelectedItem.ToString() + ".\n\t- Gender: " +
-                                                            comboBox_Gender.SelectedItem.ToString() + ".\n\n Do you want to continue?",
+                                                            comboBox_Gender.SelectedItem.ToString() + ".\n\t- Location: \n\t  - X: " +
+                                                            textBoxX.Text + "\n\t  - Y: " + textBoxY.Text + "\n\t  - Z: " + textBoxZ.Text + 
+                                                            "\n\n\t Do you want to continue?",
                                                             "WARNING", MessageBoxButtons.YesNo);
                 if (continue_with_write == DialogResult.No)
                     return;
@@ -167,6 +194,9 @@ namespace ValheimCharacterEditor
                 Customization.SelectedCharacter.Data.Gender = Customization.GenderUItoInternal(comboBox_Gender.SelectedItem.ToString());
                 Customization.SelectedCharacter.Data.HairColor = Util.ColorToVec3(textBox_HairColor.BackColor);
                 Customization.SelectedCharacter.Data.SkinColor = Util.ColorToVec3(textBox_SkinTone.BackColor);
+                Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.X = float.Parse(textBoxX.Text);
+                Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Y = float.Parse(textBoxY.Text);
+                Customization.SelectedCharacter.Data.WorldsData[long.Parse(comboBoxWorld.SelectedItem.ToString())].LogoutPoint.Z = float.Parse(textBoxZ.Text);
 
                 // Write customization, if fail restore backup
                 if (Customization.WriteCustomization())
@@ -219,6 +249,31 @@ namespace ValheimCharacterEditor
             colorDialog_HairColor.Color = textBox_HairColor.BackColor;
             if (colorDialog_HairColor.ShowDialog() == DialogResult.OK)
                 textBox_HairColor.BackColor = colorDialog_HairColor.Color;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox_Customization_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
