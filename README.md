@@ -14,7 +14,7 @@ Below is the readme from the original repo, with the screenshot swapped out to r
 
 # Stuck in the ocean?
 
-If you have anyone at your base to fetch the coordiantes, try this:
+If you don't have anyone at your base to fetch the coordiantes, try this:
  1. Make a new character and connect to your world.
  2. Go to your base.
  3. Log out, and use this to get the coordinates from the new character.
