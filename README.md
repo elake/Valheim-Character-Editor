@@ -1,8 +1,29 @@
+# Location Editor
+
+* This is a fork of Valheim Character Editor, with minor changes added to edit the location of your character.
+* I made this change for myself after our server disconnected while we were on a boat, and everyone was stranded in the ocean.
+* It works just like the original valheim character editor:
+  * Select your character
+  * Select your world
+  * Enter a new location
+  * Save
+* I didn't add any input validation or error handling, so don't enter any invalid values.
+* Make sure to back up your character files in case something goes wrong. 
+ 
+Below is the readme from the original repo, with the screenshot swapped out to reflect my change.
+
+# Stuck in the ocean?
+
+If you have anyone at your base to fetch the coordiantes, try this:
+ 1. Make a new character and connect to your world.
+ 2. Go to your base.
+ 3. Log out, and use this to get the coordinates from the new character.
+
 # Valheim Character Editor
 
 This repository is licensed under the GNU General Public License v3.0.
 
-![alt text](https://raw.githubusercontent.com/byt3m/Valheim-Character-Editor/main/ValheimCharacterEditor.PNG)
+![alt text](https://raw.githubusercontent.com/elake/Valheim-Character-Editor/main/GUI.PNG)
 
 This program creates a backup of your character data with each application. If you happen to lose your character or anything related to it, you can go to "C:\Users\\[username]\AppData\LocalLow\IronGate\Valheim\characters" and recover it.
 
